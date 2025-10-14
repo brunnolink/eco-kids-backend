@@ -16,7 +16,7 @@ export class PlayerService {
     if (existing) {
       throw new Error("This name already exists");  
     }
-
+    
     return this.playerRepository.create(name);
   }
 }

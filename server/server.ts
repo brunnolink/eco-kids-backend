@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { PrismaClient } from "@prisma/client";
+import { appRouter } from "./src/http/routes";
 
 
 dotenv.config();
@@ -11,10 +12,6 @@ const prisma = new PrismaClient();
 
 app.use(cors());
 app.use(express.json());
-// app.use(routes);
+app.use(appRouter);
 
-const PORT = process.env.PORT || 4000;
-
-app.listen(PORT, () => {
-  console.log(`🚀 EcoKids backend rodando na porta ${PORT}`);
-});
+app.listen(3333, () => console.log('🚀 App started on port 3333!'));
