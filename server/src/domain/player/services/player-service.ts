@@ -14,7 +14,7 @@ export class PlayerService {
 
     const existing = await this.playerRepository.findByName(name);
     if (existing) {
-      throw new Error("This player already exists");  
+      throw new Error("This name already exists");  
     }
 
     return this.playerRepository.create(name);
