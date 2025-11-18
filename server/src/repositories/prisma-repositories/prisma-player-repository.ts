@@ -5,17 +5,22 @@ const prismaClient = new PrismaClient();
 
 export class PrismaPlayerRepository implements PlayerRepository {
   async create(name: string) {
-    return prismaClient.player.create({
-      data: { name },
-      select: {
-        id: true,
-        name: true,
-        createdAt: true,
-        updatedAt: true,
-        scores: true,
-        events: true,
-      },
-    });
+    try {
+      return prismaClient.player.create({
+        data: { name },
+        select: {
+          id: true,
+          name: true,
+          createdAt: true,
+          updatedAt: true,
+          scores: true,
+          events: true,
+        },
+      });
+
+    } catch (error) {
+      throw new Error("Failed to create player");
+    }
   }
 
   async findByName(name: string) {
@@ -28,5 +33,18 @@ export class PrismaPlayerRepository implements PlayerRepository {
     return prismaClient.player.findUnique({
       where: { id },
     });
+  }
+
+  async savePoints(playerId: string, points: number): Promise<void> {
+    try {
+      await prismaClient.score.create({
+        data: {
+          playerId,
+          points: points,
+        },
+      });
+    } catch (error) {
+      throw new Error("Failed to save points");
+    }
   }
 }
