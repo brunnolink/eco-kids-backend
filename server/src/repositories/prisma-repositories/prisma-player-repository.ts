@@ -7,6 +7,14 @@ export class PrismaPlayerRepository implements PlayerRepository {
   async create(name: string) {
     return prismaClient.player.create({
       data: { name },
+      select: {
+        id: true,
+        name: true,
+        createdAt: true,
+        updatedAt: true,
+        scores: true,
+        events: true,
+      },
     });
   }
 
