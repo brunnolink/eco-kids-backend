@@ -14,4 +14,4 @@ playersRoute.post('/', verifyServiceKey, createPlayerController.create.bind(crea
 
 playersRoute.post('/save-points', verifyServiceKey, savePlayerPointsController.create.bind(createPlayerController));
 
-playersRoute.post('/ranking', verifyServiceKey, rankingPlayersController.get.bind(createPlayerController));
+playersRoute.get('/ranking', verifyServiceKey, rankingPlayersController.get.bind(createPlayerController));
