@@ -7,7 +7,7 @@ export class SavePointsController {
         const { playerId, points } = request.body;
         const service = makeSavePointsService();
         try {
-            const player = service.makeSavePointsService(playerId, points);
+            const player = service.savePlayerPoints(playerId, points);
             return response.status(201).json(player);
         } catch (error) {
             if (error instanceof Error) {
