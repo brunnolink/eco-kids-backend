@@ -14,7 +14,6 @@ export class PrismaPlayerRepository implements PlayerRepository {
           createdAt: true,
           updatedAt: true,
           scores: true,
-          events: true,
         },
       });
 
