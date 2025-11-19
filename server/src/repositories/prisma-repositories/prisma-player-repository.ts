@@ -46,4 +46,15 @@ export class PrismaPlayerRepository implements PlayerRepository {
       throw new Error("Failed to save points");
     }
   }
+
+  async rankingPlayers(): Promise<any[]> {
+    return prismaClient.player.findMany({
+      orderBy: {
+        scores: {
+          _count: 'desc',
+        },
+      },
+      take: 10,
+    });
+  }
 }

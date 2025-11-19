@@ -1,8 +1,6 @@
- import { PlayerService } from "../player-service";
+import { PlayerService, RankingPlayersService, SavePointsService } from "..";
 import { PrismaPlayerRepository } from "../../../../repositories/prisma-repositories/prisma-player-repository";
-import { SavePointsService } from "../save-points-service";
-
-
+ 
 export function makeCreatePlayer() {
     const playerRepository = new PrismaPlayerRepository();
     return new PlayerService(playerRepository);
@@ -11,4 +9,9 @@ export function makeCreatePlayer() {
 export function makeSavePointsService() {
     const playerRepository = new PrismaPlayerRepository();
     return new SavePointsService(playerRepository);
+}
+
+export function makeRankingPlayersService() {
+    const playerRepository = new PrismaPlayerRepository();
+    return new RankingPlayersService(playerRepository);
 }

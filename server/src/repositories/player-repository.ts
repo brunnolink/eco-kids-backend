@@ -7,4 +7,5 @@ export interface PlayerRepository {
     findById(id: string): Promise<Player | null>;
 
     savePoints(playerId: string, points: number): Promise<void>;
+    rankingPlayers(): Promise<any[]>
 }
