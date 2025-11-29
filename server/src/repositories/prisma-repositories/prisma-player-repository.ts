@@ -54,6 +54,15 @@ export class PrismaPlayerRepository implements PlayerRepository {
           _count: 'desc',
         },
       },
+      select: {
+        id: true,
+        name: true,
+        scores: {
+          select: {
+            points: true,
+          },
+        },
+      },
       take: 10,
     });
   }
