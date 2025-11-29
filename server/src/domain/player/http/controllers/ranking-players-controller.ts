@@ -5,7 +5,7 @@ export class RankingPlayersController {
     async get(request: Request, response: Response): Promise<Response> {
         const service = makeRankingPlayersService();
         try {
-            const result = service.getRankingPlayers();
+            const result = await service.getRankingPlayers();
             return response.status(200).json(result);
         } catch (error) {
             if (error instanceof Error) {
