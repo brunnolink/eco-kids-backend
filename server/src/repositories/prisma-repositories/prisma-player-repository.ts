@@ -12,6 +12,7 @@ export class PrismaPlayerRepository implements PlayerRepository {
           id: true,
           name: true,
           points: true,
+          achievements: true,
           createdAt: true,
           updatedAt: true,
         },
@@ -34,7 +35,7 @@ export class PrismaPlayerRepository implements PlayerRepository {
     });
   }
 
-  async savePoints(playerId: string, points: number): Promise<void> {
+  async savePoints(playerId: string, points: number, achievements: string[]): Promise<void> {
     try {
       const player = await prismaClient.player.findUnique({
         where: { id: playerId },
@@ -42,10 +43,12 @@ export class PrismaPlayerRepository implements PlayerRepository {
       if (!player) {
         throw new Error("Player not found");
       }
+ 
       await prismaClient.player.update({
         where: { id: player.id },
         data: {
           points: points,
+          achievements: achievements,
         },
       });
     } catch (error) {
@@ -62,6 +65,7 @@ export class PrismaPlayerRepository implements PlayerRepository {
         id: true,
         name: true,
         points: true,
+        achievements: true,
       },
       take: 10,
     });
