@@ -11,9 +11,9 @@ export class PrismaPlayerRepository implements PlayerRepository {
         select: {
           id: true,
           name: true,
+          points: true,
           createdAt: true,
           updatedAt: true,
-          scores: true,
         },
       });
 
@@ -36,9 +36,15 @@ export class PrismaPlayerRepository implements PlayerRepository {
 
   async savePoints(playerId: string, points: number): Promise<void> {
     try {
-      await prismaClient.score.create({
+      const player = await prismaClient.player.findUnique({
+        where: { id: playerId },
+      });
+      if (!player) {
+        throw new Error("Player not found");
+      }
+      await prismaClient.player.update({
+        where: { id: player.id },
         data: {
-          playerId,
           points: points,
         },
       });
@@ -50,18 +56,12 @@ export class PrismaPlayerRepository implements PlayerRepository {
   async rankingPlayers(): Promise<any[]> {
     return prismaClient.player.findMany({
       orderBy: {
-        scores: {
-          _count: 'desc',
-        },
+        points: 'desc',
       },
       select: {
         id: true,
         name: true,
-        scores: {
-          select: {
-            points: true,
-          },
-        },
+        points: true,
       },
       take: 10,
     });
